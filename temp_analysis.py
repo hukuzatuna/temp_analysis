@@ -37,7 +37,8 @@ from numpy.polynomial.polynomial import polyfit
 ######################
 
 data_path = "/home/pi/src/roomtemp/roomtemp_pi/output/temperature_data.csv"
-output_path = "/home/pi/src/roomtemp/temp_analysis/output"
+# output_path = "/home/pi/src/roomtemp/temp_analysis/output"
+output_path = "./images/"
 
 
 ######################
@@ -185,15 +186,15 @@ def main():
     ax.set_xlabel('Temperature')
     ax.set_title('Sensor Variance by Temperature')
 
-    ax.scatter(DataDF["bme280"], DF2["bme280"], c='b', s=10)
+    ax.scatter(DataDF["bme280"], DF2["bme280"], c='b', s=0.1)
     b,m = polyfit(DataDF["bme280"], DF2["bme280"], 1)
     plt.plot(DataDF["bme280"], b + m * DataDF["bme280"], '-', c='r')
 
-    ax.scatter(DataDF["dps310"], DF2["dps310"], c='g', s=10)
+    ax.scatter(DataDF["dps310"], DF2["dps310"], c='g', s=0.1)
     b,m = polyfit(DataDF["dps310"], DF2["dps310"], 1)
     plt.plot(DataDF["dps310"], b + m * DataDF["dps310"], '-', c='r')
 
-    ax.scatter(DataDF["lps3x"], DF2["lps3x"], c='c', s=5)
+    ax.scatter(DataDF["lps3x"], DF2["lps3x"], c='c', s=0.1)
     b,m = polyfit(DataDF["lps3x"], DF2["lps3x"], 1)
     plt.plot(DataDF["lps3x"], b + m * DataDF["lps3x"], '-', c='r')
 
