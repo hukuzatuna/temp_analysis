@@ -66,7 +66,7 @@ This analysis uses the following hardware:
 - STMicroelectronics LPS35HW
 - [LPS35HW Data Sheet](http://www.st.com/content/ccc/resource/technical/document/datasheet/group3/61/1f/dc/f4/51/bc/49/82/DM00280413/files/DM00280413.pdf/jcr:content/translations/en.DM00280413.pdf)
 - Sensiron SHTC3 temperature sensor
-- [Sensirion AG Data Sheet](https://media.digikey.com/pdf/Data%20Sheets/Sensirion%20PDFs/HT_DS_SHTC3_D1.pdf]
+- [Sensirion AG Data Sheet](https://media.digikey.com/pdf/Data%20Sheets/Sensirion%20PDFs/HT_DS_SHTC3_D1.pdf)
 - AHT20 temperature sensor
 - [AHT20 Data Sheet](https://cdn-learn.adafruit.com/assets/assets/000/091/676/original/AHT20-datasheet-2020-4-16.pdf?1591047915)
 - LPS22 temperature sensor
