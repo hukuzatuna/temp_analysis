@@ -69,12 +69,12 @@ This analysis uses the following hardware:
 - [Sensirion AG Data Sheet](https://media.digikey.com/pdf/Data%20Sheets/Sensirion%20PDFs/HT_DS_SHTC3_D1.pdf)
 - AHT20 temperature sensor
 - [AHT20 Data Sheet](https://cdn-learn.adafruit.com/assets/assets/000/091/676/original/AHT20-datasheet-2020-4-16.pdf?1591047915)
-- LPS22 temperature sensor
-- Data Sheet
-- LPS25 temperature sensor
-- Data Sheet
-- PCT2075 temperature sensor
-- Data Sheet
-- HTS221 temperature sensor
-- Data Sheet
+- STMicroelectronics LPS22 temperature sensor
+- [LPS22 Data Sheet](http://www.st.com/content/ccc/resource/technical/document/datasheet/bf/c1/4f/23/61/17/44/8a/DM00140895.pdf/files/DM00140895.pdf/jcr:content/translations/en.DM00140895.pdf)
+- STMicroelectronics LPS25 temperature sensor
+- [LPS25 Data Sheet](http://www.st.com/content/ccc/resource/technical/document/datasheet/9a/4c/aa/72/1f/45/4e/24/DM00141379.pdf/files/DM00141379.pdf/jcr:content/translations/en.DM00141379.pdf)
+- NXP USA Inc. PCT2075 temperature sensor
+- [PCT2075 Data Sheet](https://www.nxp.com/docs/en/data-sheet/PCT2075.pdf)
+- STMicroelectronics HTS221 temperature sensor
+- [HTS221 Data Sheet](http://www.st.com/content/ccc/resource/technical/document/datasheet/4d/9a/9c/ad/25/07/42/34/DM00116291.pdf/files/DM00116291.pdf/jcr:content/translations/en.DM00116291.pdf)
 
