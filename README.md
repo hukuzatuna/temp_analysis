@@ -33,7 +33,7 @@ This analysis uses the following hardware:
 - [Adafruit BME280]{https://www.adafruit.com/product/2652) temperature sensor
 - [Adafruit DPS310](https://www.adafruit.com/product/4494) temperature sensor
 - [Adafruit LPS35HW](https://www.adafruit.com/product/4258) temperatuere sensor
-- [Adafruit Sensiron SHTC3](https://www.adafruit.com/product/4636) temperatue sensor
+- [Adafruit Sensiron SHTC3](https://www.adafruit.com/product/4636) temperatue sensor)
 - [Adafruit AHT20](https://www.adafruit.com/product/4566) temperature sensor
 - [Adafruit LPS22](https://www.adafruit.com/product/4633) temperature sensor
 - [Adafruit LPS25](https://www.adafruit.com/product/4530) temperature sensor
