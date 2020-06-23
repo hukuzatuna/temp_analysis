@@ -36,7 +36,8 @@ from numpy.polynomial.polynomial import polyfit
 # Globals
 ######################
 
-data_path = "/home/pi/src/roomtemp/roomtemp_pi/output/temperature_data.csv"
+# data_path = "/home/pi/src/roomtemp/roomtemp_pi/output/temperature_data.csv"
+data_path = "/home/pi/src/roomtemp/roomtemp_pi/output/data_in.csv"
 # output_path = "/home/pi/src/roomtemp/temp_analysis/output"
 output_path = "./images/"
 
