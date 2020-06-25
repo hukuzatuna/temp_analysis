@@ -68,7 +68,7 @@ def main():
     """
 
     # Read the data into a matrix
-    Col_Names = ["bme280","dps310","lps3x","mean"]
+    Col_Names = ["bme280","dps310","lps3x","pct2075","hts221","mean"]
     DataDF = pd.read_csv(data_path, names=Col_Names)
 
     #----------------------------------------------
@@ -89,7 +89,11 @@ def main():
     ax.plot(x, DataDF.iloc[:,0:1], c='b', ls='-', label="BME280", linewidth=0.5)
     ax.plot(x, DataDF.iloc[:,1:2], c='g', ls='-', label="DPS310", linewidth=0.5)
     ax.plot(x, DataDF.iloc[:,2:3], c='c', ls='-', label="LPS3x", linewidth=0.5)
-    ax.plot(x, DataDF.iloc[:,3:4], c='r', ls='-', label="Mean", linewidth=0.5)
+    ax.plot(x, DataDF.iloc[:,3:4], c='y', ls='-', label="PCT2075", linewidth=0.5)
+    ax.plot(x, DataDF.iloc[:,4:5], c='m', ls='-', label="HTS221", linewidth=0.5)
+#   placeholder - LPS22 - white
+#   placeholder - LPS25 - 'xkcd:sky blue'
+    ax.plot(x, DataDF.iloc[:,5:6], c='r', ls='-', label="Mean", linewidth=0.5)
 
     plt.legend()
     out_file = "%s/time_series_001.jpg" % output_path
@@ -111,6 +115,8 @@ def main():
     DF2['bme280'] = DataDF["bme280"] - DataDF['mean']
     DF2['dps310'] = DataDF["dps310"] - DataDF['mean']
     DF2['lps3x'] = DataDF["lps3x"] - DataDF['mean']
+    DF2['pct2075'] = DataDF["pct2075"] - DataDF['mean']
+    DF2['hts221'] = DataDF["hts221"] - DataDF['mean']
     # print(DF2.head(10))
    
     x = np.arange(len(DF2.iloc[:,1:1]))
@@ -127,6 +133,8 @@ def main():
     ax.plot(x, DF2["bme280"], c='b', ls='-', label="BME280", linewidth=0.5)
     ax.plot(x, DF2["dps310"], c='g', ls='-', label="DPS310", linewidth=0.5)
     ax.plot(x, DF2["lps3x"], c='c', ls='-', label="LPS3x", linewidth=0.5)
+    ax.plot(x, DF2["pct2075"], c='y', ls='-', label="PCT2075", linewidth=0.5)
+    ax.plot(x, DF2["hts221"], c='m', ls='-', label="HTS221", linewidth=0.5)
 
     plt.legend()
     out_file = "%s/variance_around_mean.jpg" % output_path
@@ -167,6 +175,24 @@ def main():
         lps_var_mean,
         lps_var_median))
 
+    pct_var_max = DF2["pct2075"].max()
+    pct_var_min = DF2["pct2075"].min()
+    pct_var_mean = DF2["pct2075"].mean()
+    pct_var_median = DF2["pct2075"].median()
+    print("\tPTC2075\t%0.4f\t%0.4f\t%0.4f\t%0.4f" % (pct_var_max,
+        pct_var_min,
+        pct_var_mean,
+        pct_var_median))
+
+    hts_var_max = DF2["hts221"].max()
+    hts_var_min = DF2["hts221"].min()
+    hts_var_mean = DF2["hts221"].mean()
+    hts_var_median = DF2["hts221"].median()
+    print("\tHTS221\t%0.4f\t%0.4f\t%0.4f\t%0.4f" % (hts_var_max,
+        hts_var_min,
+        hts_var_mean,
+        hts_var_median))
+
     print("")
 
     # Histograms of the variance
@@ -198,6 +224,14 @@ def main():
     ax.scatter(DataDF["lps3x"], DF2["lps3x"], c='c', s=0.1)
     b,m = polyfit(DataDF["lps3x"], DF2["lps3x"], 1)
     plt.plot(DataDF["lps3x"], b + m * DataDF["lps3x"], '-', c='r')
+
+    ax.scatter(DataDF["pct2075"], DF2["pct2075"], c='y', s=0.1)
+    b,m = polyfit(DataDF["pct2075"], DF2["pct2075"], 1)
+    plt.plot(DataDF["pct2075"], b + m * DataDF["pct2075"], '-', c='r')
+
+    ax.scatter(DataDF["hts221"], DF2["hts221"], c='m', s=0.1)
+    b,m = polyfit(DataDF["hts221"], DF2["hts221"], 1)
+    plt.plot(DataDF["hts221"], b + m * DataDF["hts221"], '-', c='r')
 
     plt.legend()
     out_file = "%s/VarxTemp.jpg" % output_path
