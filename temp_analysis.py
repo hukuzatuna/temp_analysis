@@ -91,8 +91,14 @@ def main():
     ax.plot(x, DataDF.iloc[:,2:3], c='c', ls='-', label="LPS3x", linewidth=0.5)
     ax.plot(x, DataDF.iloc[:,3:4], c='y', ls='-', label="PCT2075", linewidth=0.5)
     ax.plot(x, DataDF.iloc[:,4:5], c='m', ls='-', label="HTS221", linewidth=0.5)
-#   placeholder - LPS22 - white
+#   placeholder - HTU21D-F - 'xkcd:seafoam'
+#   placeholder - Si7021 - 'xkcd:light orange'
+#   placeholder - SHT31-D - 'xkcd:light yellow'
+#   placeholder - LPS22 - 'xkcd:white'
 #   placeholder - LPS25 - 'xkcd:sky blue'
+#   placeholder - PT1000/ADS1115 - 'xkcd:hot pink'
+#   placeholder - SHTC3 - 'xkcd:goldenrod'
+#   placeholder - AMT20 -  'xkcd:light violet'
     ax.plot(x, DataDF.iloc[:,5:6], c='r', ls='-', label="Mean", linewidth=0.5)
 
     plt.legend()
