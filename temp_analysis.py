@@ -215,23 +215,23 @@ def main():
 
     ax.scatter(DataDF["bme280"], DF2["bme280"], c='b', s=0.1)
     b,m = polyfit(DataDF["bme280"], DF2["bme280"], 1)
-    plt.plot(DataDF["bme280"], b + m * DataDF["bme280"], '-', c='r')
+    plt.plot(DataDF["bme280"], b + m * DataDF["bme280"], '-', c='b')
 
     ax.scatter(DataDF["dps310"], DF2["dps310"], c='g', s=0.1)
     b,m = polyfit(DataDF["dps310"], DF2["dps310"], 1)
-    plt.plot(DataDF["dps310"], b + m * DataDF["dps310"], '-', c='r')
+    plt.plot(DataDF["dps310"], b + m * DataDF["dps310"], '-', c='g')
 
     ax.scatter(DataDF["lps3x"], DF2["lps3x"], c='c', s=0.1)
     b,m = polyfit(DataDF["lps3x"], DF2["lps3x"], 1)
-    plt.plot(DataDF["lps3x"], b + m * DataDF["lps3x"], '-', c='r')
+    plt.plot(DataDF["lps3x"], b + m * DataDF["lps3x"], '-', c='c')
 
     ax.scatter(DataDF["pct2075"], DF2["pct2075"], c='y', s=0.1)
     b,m = polyfit(DataDF["pct2075"], DF2["pct2075"], 1)
-    plt.plot(DataDF["pct2075"], b + m * DataDF["pct2075"], '-', c='r')
+    plt.plot(DataDF["pct2075"], b + m * DataDF["pct2075"], '-', c='y')
 
     ax.scatter(DataDF["hts221"], DF2["hts221"], c='m', s=0.1)
     b,m = polyfit(DataDF["hts221"], DF2["hts221"], 1)
-    plt.plot(DataDF["hts221"], b + m * DataDF["hts221"], '-', c='r')
+    plt.plot(DataDF["hts221"], b + m * DataDF["hts221"], '-', c='m')
 
     plt.legend()
     out_file = "%s/VarxTemp.jpg" % output_path
