@@ -1,10 +1,7 @@
 # Analytic Comparison of Temperature Sensor Chips
 
 Philip R. Moyer (phil@moyer.ai)
-
 June 2020
-
-Copyright &copy; 2020 Philip R. Moyer. All rights reserved.
 
 ## Abstract
 
@@ -61,8 +58,6 @@ This analysis uses the following hardware:
 
 
 ## Conclusions
-
-## Acknowledgements
 
 ## References
 
