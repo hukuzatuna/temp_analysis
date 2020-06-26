@@ -83,7 +83,7 @@ def main():
     fig.dpi = 300
     ax = fig.add_subplot(111)
     ax.set_ylabel('Temp F')
-    ax.set_xlabel('Index')
+    ax.set_xlabel('Observation')
     ax.set_title('Bedroom Temperature Sensor Comparison')
 
     ax.plot(x, DataDF.iloc[:,0:1], c='b', ls='-', label="BME280", linewidth=0.5)
@@ -133,7 +133,7 @@ def main():
     fig.dpi = 300
     ax = fig.add_subplot(111)
     ax.set_ylabel('Variance')
-    ax.set_xlabel('Index')
+    ax.set_xlabel('Observation')
     ax.set_title('Sensor Variance Around The Mean')
 
     ax.plot(x, DF2["bme280"], c='b', ls='-', label="BME280", linewidth=0.5)
@@ -205,7 +205,7 @@ def main():
 
     out_file = "%s/variance_hist.jpg" % output_path
     plt.style.use('dark_background')
-    hist = DF2.hist(bins=20, figsize=(12,5), layout=(1,3))
+    hist = DF2.hist(bins=20, figsize=(12,5), layout=(1,5))
     plt.savefig(out_file)
 
     # Variance by temperature
