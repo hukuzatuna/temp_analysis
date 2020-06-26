@@ -1,7 +1,10 @@
 # Analytic Comparison of Temperature Sensor Chips
 
 Philip R. Moyer (phil@moyer.ai)
+
 June 2020
+
+Copyright &copy; 2020 Philip R. Moyer. All rights reserved.
 
 ## Abstract
 
@@ -47,11 +50,15 @@ This analysis uses the following hardware:
 
 ![Time Series](/images/time_series_001.jpg)
 
+
 ![Variance around the mean](/images/variance_around_mean.jpg)
+
 
 ![Histogram of variance around the mean](/images/variance_hist.jpg)
 
+
 ![Variance by temperature, with regression](/images/VarxTemp.jpg)
+
 
 ## Conclusions
 
