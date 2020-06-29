@@ -36,9 +36,7 @@ from numpy.polynomial.polynomial import polyfit
 # Globals
 ######################
 
-# data_path = "/home/pi/src/roomtemp/roomtemp_pi/output/temperature_data.csv"
 data_path = "/home/pi/src/roomtemp/roomtemp_pi/output/data_in.csv"
-# output_path = "/home/pi/src/roomtemp/temp_analysis/output"
 output_path = "./images/"
 
 color_data = {
@@ -48,15 +46,13 @@ color_data = {
     'hts221'   : 'm',
     'mcp9808'  : 'xkcd:hot pink',
     'sht31d'   : 'xkcd:light yellow',
-    'lps35hw'  : 'c',
-    'lps22'    : 'xkcd:white',
-    'htu21'    : 'xkcd:seafoam',
+    'htu21d'   : 'xkcd:seafoam',
     'si7021'   : 'xkcd:light orange',
-    'lps25'    : 'xkcd:sky blue',
     'mean'     : 'r',
+}
+    # 'lps35hw'  : 'c',
 #   placeholder - SHTC3 - 'xkcd:goldenrod'
 #   placeholder - AMT20 -  'xkcd:light violet'
-}
 
 
 ######################
@@ -85,9 +81,13 @@ def main():
     """
 
     # Read the data into a matrix
-    Col_Names = ["bme280","dps310","pct2075","hts221","mcp9808","sht31d",
-        "lps35hw","lps22","htu21","si7021","lps25","mean"]
-    DataDF = pd.read_csv(data_path, names=Col_Names)
+    # Col_Names = ["bme280","dps310","pct2075","hts221","mcp9808","sht31d",
+    #     "lps35hw","lps22","htu21","si7021","lps25","mean"]
+    Col_Names = ["dps310","pct2075","hts221","mcp9808","lps35hw","sht31d",
+            "si7021","htu21d","mean"]
+    tempDF = pd.read_csv(data_path, names=Col_Names)
+
+    DataDF = tempDF.drop("lps35hw",1)
 
     #----------------------------------------------
     # Plot time series of all data points ####    |
@@ -195,7 +195,7 @@ def main():
             label='_nolegend_')
         b,m = polyfit(DataDF[sensor], DF2[sensor], 1)
         plt.plot(DataDF[sensor], b + m * DataDF[sensor], '-', linewidth=0.4,
-            c=color_data[sensor])
+            c=color_data[sensor], label=sensor)
 
     plt.legend()
     out_file = "%s/VarxTemp.jpg" % output_path
