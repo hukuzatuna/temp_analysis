@@ -48,11 +48,11 @@ color_data = {
     'sht31d'   : 'xkcd:light yellow',
     'htu21d'   : 'xkcd:seafoam',
     'si7021'   : 'xkcd:light orange',
+    'shtc3'    : 'xkcd:goldenrod',
+    'aht20'    : 'xkcd:light violet',
     'mean'     : 'r',
 }
     # 'lps35hw'  : 'c',
-#   placeholder - SHTC3 - 'xkcd:goldenrod'
-#   placeholder - AMT20 -  'xkcd:light violet'
 
 
 ######################
@@ -84,7 +84,7 @@ def main():
     # Col_Names = ["bme280","dps310","pct2075","hts221","mcp9808","sht31d",
     #     "lps35hw","lps22","htu21","si7021","lps25","mean"]
     Col_Names = ["dps310","pct2075","hts221","mcp9808","lps35hw","sht31d",
-            "si7021","htu21d","mean"]
+            "si7021","htu21d","shtc3","aht20","mean"]
     tempDF = pd.read_csv(data_path, names=Col_Names)
 
     DataDF = tempDF.drop("lps35hw",1)
