@@ -21,6 +21,8 @@ roomtemp_pi.py program.
 # Standard libraries modules
 
 import statistics
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
