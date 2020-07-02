@@ -27,6 +27,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from numpy.polynomial.polynomial import polyfit
+import sklearn
+import hashlib
+from sklearn.model_selection import train_test_split
 
 
 # Third-party modules
@@ -38,7 +41,7 @@ from numpy.polynomial.polynomial import polyfit
 # Globals
 ######################
 
-data_path = "/home/pi/src/roomtemp/roomtemp_pi/output/data_in.csv"
+data_path = "./TestData.csv"
 output_path = "./images/"
 
 color_data = {
@@ -73,14 +76,17 @@ color_data = {
 # Functions
 ######################
 
-def main():
-    """Abstract main() into a function. Normally exits after execution.
+def test_set_check(identifier, test_ratio, hash):
+    return(hash(np.int64(identifier)).digets()[-1] < 256 * test_ratio)
 
-    A function abstracting the main code in the module, which
-    allows it to be used for libraries as well as testing (i.e., it can be
-    called as a script for testing or imported as a library, without
-    modification).
-    """
+
+def split_train_test_by_id(data, test_ratio, id_column, has=hashlib.md5):
+    ids = data[id_column]
+    in_test_set = ids.apply(lambda id_: test_set_check(id_, test_ratio, hash))
+    return(data.loc[~in_test_set], data.loc[in_test_set])
+
+
+def main():
 
     # Read the data into a matrix
     # Col_Names = ["bme280","dps310","pct2075","hts221","mcp9808","sht31d",
@@ -89,6 +95,10 @@ def main():
             "si7021","htu21d","shtc3","aht20","mean"]
     tempDF = pd.read_csv(data_path, names=Col_Names)
 
+    # Add an index column
+    # DataDF = tempDF.reset_index()
+    
+    # Remove sensors with known-bad data
     DataDF = tempDF.drop("lps35hw",1)
 
     #----------------------------------------------
@@ -157,15 +167,15 @@ def main():
     # Statistics of the variance
     #----------------------------------------------
 
-    print("\nSensor Variance Around The Mean:")
-    print("\tSensor\tMax\tMin\tMean\tMedian")
+    print("\nSensor Variance Around The Mean\n")
+    print("Sensor\tMax\tMin\tMean\tMedian")
 
     for sensor in DF2.keys():
         t_var_max = DF2[sensor].max()
         t_var_min = DF2[sensor].min()
         t_var_mean = DF2[sensor].mean()
         t_var_median = DF2[sensor].median()
-        print("\t%s\t%0.4f\t%0.4f\t%0.4f\t%0.4f" % (sensor,
+        print("%s\t%0.4f\t%0.4f\t%0.4f\t%0.4f" % (sensor,
             t_var_max,
             t_var_min,
             t_var_mean,
@@ -202,6 +212,23 @@ def main():
     plt.legend()
     out_file = "%s/VarxTemp.jpg" % output_path
     plt.savefig(out_file)
+
+    #################################################
+    # 
+    # Machine Learning Time
+    #
+    #################################################
+
+    # Set aside a test set. Really want to use leave-one-out k-fold validation,
+    # but we'll get to that.
+
+    train_set, test_set = train_test_split(DataDF, test_size=0.2)
+
+    # Correlation
+
+    print("Correlation Matrix\n")    
+    corr_matrix = DataDF.corr()
+    print(corr_matrix)
 
   
 ######################
