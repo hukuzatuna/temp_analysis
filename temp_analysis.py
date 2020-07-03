@@ -41,7 +41,7 @@ from sklearn.model_selection import train_test_split
 # Globals
 ######################
 
-data_path = "./TestData.csv"
+data_path = "./TempData.csv"
 output_path = "./images/"
 
 color_data = {
@@ -92,7 +92,7 @@ def main():
     # Col_Names = ["bme280","dps310","pct2075","hts221","mcp9808","sht31d",
     #     "lps35hw","lps22","htu21","si7021","lps25","mean"]
     Col_Names = ["dps310","pct2075","hts221","mcp9808","lps35hw","sht31d",
-            "si7021","htu21d","shtc3","aht20","mean"]
+            "si7021","htu21d","shtc3","aht20","mean","pressure","rh"]
     tempDF = pd.read_csv(data_path, names=Col_Names)
 
     # Add an index column
@@ -117,7 +117,8 @@ def main():
     ax.set_title('Temperature Sensor Time Series Comparison')
 
     for sensor in DataDF.keys():
-        ax.plot(x, DataDF[sensor], c=color_data[sensor], ls='-', label=sensor, linewidth=0.5)
+        if "pressure" != sensor and "rh" != sensor:
+            ax.plot(x, DataDF[sensor], c=color_data[sensor], ls='-', label=sensor, linewidth=0.5)
 
     plt.legend()
     out_file = "%s/time_series_001.jpg" % output_path
@@ -140,7 +141,8 @@ def main():
 
     DF2 = pd.DataFrame()
     for sensor in DataDF.keys():
-        DF2[sensor] = DataDF[sensor] - DataDF['mean']
+        if "pressure" != sensor and "rh" != sensor:
+            DF2[sensor] = DataDF[sensor] - DataDF['mean']
 
     # print(DF2.head(10))
    
@@ -156,7 +158,8 @@ def main():
     ax.set_title('Sensor Variance Around The Mean')
 
     for sensor in DF2.keys():
-        ax.plot(x, DF2[sensor], c=color_data[sensor], ls='-', label=sensor, linewidth=0.5)
+        if "pressure" != sensor and "rh" != sensor:
+            ax.plot(x, DF2[sensor], c=color_data[sensor], ls='-', label=sensor, linewidth=0.5)
 
     plt.legend()
     out_file = "%s/variance_around_mean.jpg" % output_path
@@ -171,25 +174,26 @@ def main():
     print("Sensor\tMax\tMin\tMean\tMedian")
 
     for sensor in DF2.keys():
-        t_var_max = DF2[sensor].max()
-        t_var_min = DF2[sensor].min()
-        t_var_mean = DF2[sensor].mean()
-        t_var_median = DF2[sensor].median()
-        print("%s\t%0.4f\t%0.4f\t%0.4f\t%0.4f" % (sensor,
-            t_var_max,
-            t_var_min,
-            t_var_mean,
-            t_var_median))
+        if "pressure" != sensor and "rh" != sensor:
+            t_var_max = DF2[sensor].max()
+            t_var_min = DF2[sensor].min()
+            t_var_mean = DF2[sensor].mean()
+            t_var_median = DF2[sensor].median()
+            print("%s\t%0.4f\t%0.4f\t%0.4f\t%0.4f" % (sensor,
+                t_var_max,
+                t_var_min,
+                t_var_mean,
+                t_var_median))
 
     print("")
 
 
     # Histograms of the variance
 
-    out_file = "%s/variance_hist.jpg" % output_path
-    plt.style.use('dark_background')
-    hist = DF2.hist(bins=20, figsize=(12,5), layout=(3,5))
-    plt.savefig(out_file)
+    # out_file = "%s/variance_hist.jpg" % output_path
+    # plt.style.use('dark_background')
+    # hist = DF2.hist(bins=20, figsize=(12,5), layout=(3,5))
+    # plt.savefig(out_file)
 
     # Variance by temperature
     
@@ -203,15 +207,63 @@ def main():
     ax.set_title('Sensor Variance by Temperature')
 
     for sensor in DataDF.keys():
-        ax.scatter(DataDF[sensor], DF2[sensor], c=color_data[sensor], s=0.1,
-            label='_nolegend_')
-        b,m = polyfit(DataDF[sensor], DF2[sensor], 1)
-        plt.plot(DataDF[sensor], b + m * DataDF[sensor], '-', linewidth=0.4,
-            c=color_data[sensor], label=sensor)
+        if "pressure" != sensor and "rh" != sensor:
+            ax.scatter(DataDF[sensor], DF2[sensor], c=color_data[sensor], s=0.1,
+                label='_nolegend_')
+            b,m = polyfit(DataDF[sensor], DF2[sensor], 1)
+            plt.plot(DataDF[sensor], b + m * DataDF[sensor], '-', linewidth=0.4,
+                c=color_data[sensor], label=sensor)
 
     plt.legend()
     out_file = "%s/VarxTemp.jpg" % output_path
     plt.savefig(out_file)
+
+    # Temperature by pressure
+    
+    plt.style.use('dark_background')
+    fig = plt.figure()
+    fig.set_size_inches(12,5)
+    fig.dpi = 300
+    ax = fig.add_subplot(111)
+    ax.set_ylabel('Temperature')
+    ax.set_xlabel('Pressure')
+    ax.set_title('Sensor Dependency on Pressure')
+
+    for sensor in DataDF.keys():
+        if "pressure" != sensor and "rh" != sensor:
+            ax.scatter(DataDF["pressure"], DataDF[sensor], c=color_data[sensor], s=0.1,
+                label='_nolegend_')
+            b,m = polyfit(DataDF["pressure"], DataDF[sensor], 1)
+            plt.plot(DataDF["pressure"], b + m * DataDF[sensor], '-', linewidth=0.4,
+                c=color_data[sensor], label=sensor)
+
+    plt.legend()
+    out_file = "%s/TempxPress.jpg" % output_path
+    plt.savefig(out_file)
+
+    # Temperature by humidity
+    
+    plt.style.use('dark_background')
+    fig = plt.figure()
+    fig.set_size_inches(12,5)
+    fig.dpi = 300
+    ax = fig.add_subplot(111)
+    ax.set_ylabel('Temperature')
+    ax.set_xlabel('Humidity')
+    ax.set_title('Sensor Dependency on Humidity')
+
+    for sensor in DataDF.keys():
+        if "pressure" != sensor and "rh" != sensor:
+            ax.scatter(DataDF["rh"], DataDF[sensor], c=color_data[sensor], s=0.1,
+                label='_nolegend_')
+            b,m = polyfit(DataDF["rh"], DataDF[sensor], 1)
+            plt.plot(DataDF["rh"], b + m * DataDF[sensor], '-', linewidth=0.4,
+                c=color_data[sensor], label=sensor)
+
+    plt.legend()
+    out_file = "%s/TempxRH.jpg" % output_path
+    plt.savefig(out_file)
+
 
     #################################################
     # 
@@ -229,6 +281,21 @@ def main():
     print("Correlation Matrix\n")    
     corr_matrix = DataDF.corr()
     print(corr_matrix)
+    print("")
+
+    # Correlation scatter matrix (not really useful)
+
+    # plt.style.use('dark_background')
+    # fig = plt.figure()
+    # fig.set_size_inches(10,10)
+    # fig.dpi = 300
+    # ax = fig.add_subplot(111)
+    # ax.set_title('Correlation Matrix Scatter Plots')
+
+    # pd.plotting.scatter_matrix(corr_matrix)
+
+    # out_file = "%s/CorrScatter.jpg" % output_path
+    # plt.savefig(out_file)
 
   
 ######################
